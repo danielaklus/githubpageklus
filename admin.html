@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento de Pedido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .seguimiento {
+            max-width: 500px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px red;
+            margin-top: 30px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .estado {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .activo {
+            color: red;
+        }
+
+        .proximo {
+            color: black;
+        }
+
+        .admin-panel {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .admin-panel button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="seguimiento">
+        <h2>📦 Estado del Pedido</h2>
+        <div id="estado1" class="estado">🟢 Recibido</div>
+        <div id="estado2" class="estado">🟡 En preparación</div>
+        <div id="estado3" class="estado">🟠 En camino</div>
+        <div id="estado4" class="estado">✅ Entregado</div>
+
+        <div class="admin-panel">
+            <h3>🔧 Cambiar estado del pedido</h3>
+            <button onclick="actualizarEstado(1)">🟢 Recibido</button>
+            <button onclick="actualizarEstado(2)">🟡 En preparación</button>
+            <button onclick="actualizarEstado(3)">🟠 En camino</button>
+            <button onclick="actualizarEstado(4)">✅ Entregado</button>
+        </div>
+    </div>
+
+    <script>
+        function actualizarEstado(numero) {
+            localStorage.setItem('estadoPedido', numero);
+            mostrarEstado(numero);
+        }
+
+        function mostrarEstado(numero) {
+            for (let i = 1; i <= 4; i++) {
+                const estado = document.getElementById("estado" + i);
+                estado.classList.remove("activo", "proximo");
+                if (i < numero) estado.classList.add("proximo");
+                else if (i === numero) estado.classList.add("activo");
+            }
+        }
+
+        const estadoGuardado = localStorage.getItem('estadoPedido');
+        if (estadoGuardado) {
+            mostrarEstado(parseInt(estadoGuardado));
+        } else {
+            mostrarEstado(1);
+        }
+    </script>
+
+</body>
+
+</html>

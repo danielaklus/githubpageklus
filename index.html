@@ -1,1 +1,168 @@
-<h1>github pageklus</h1>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delivery Simple</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Delivery Simple</h1>
+    </header>
+
+    <section class="search-section">
+        <h2>Pedí tu comida online</h2>
+        <div id="login-box">
+            <h3>Ingresá para continuar</h3>
+            <input type="text" id="nombreLogin" placeholder="Tu nombre">
+            <input type="text" id="direccionLogin" placeholder="Tu dirección">
+            <button onclick="ingresar()">Entrar</button>
+        </div>
+        <div class="categories">
+            <div class="cat">🥪 Sándwich de Milanesa</div>
+            <div class="cat">🥔 Tortilla de Papa</div>
+            <div class="cat">🍟 Papas Fritas</div>
+        </div>
+        <h2>Elegi tu menu</h2>
+        <div class="menu-opciones">
+            <div class="opcion">
+                <img src="milanesa.webp" alt="sandwich de milanesa">
+                <p>Sandwich de Milanesa - 6000$</p>
+                <button onclick="agregarCompra('Sandwich de Milanesa', 6000 )">comprar</button>
+            </div>
+            <div class="opcion">
+                <img src="tortilla.webp" alt="Tortilla de papa">
+                <p>Tortilla de papa - 4000$</p>
+                <button onclick="agregarCompra('Tortilla de papa', 4000)">comprar</button>
+            </div>
+            <div class="opcion">
+                <img src="papas.jpg" alt="Papas fritas">
+                <p>Papas fritas - 3000$</p>
+                <button onclick="agregarCompra('Papas fritas', 3000)">comprar</button>
+            </div>
+        </div>
+        <!-- Lista de compra debajo del menú -->
+        <div id="lista-compras" style="margin-top: 30px;"></div>
+
+        <!-- Cuadro donde mostramos los datos después de ingresar -->
+        <div id="datos-usuario" style="display: none;">
+            <p>👤 <strong id="mostrar-nombre"></strong></p>
+            <p>📍 <strong id="mostrar-direccion"></strong></p>
+        </div>
+        <div class="seguimiento">
+            <h2>📦 Estado del Pedido</h2>
+            <div id="estado1" class="estado">🟢 Recibido</div>
+            <div id="estado2" class="estado">🟡 En preparación</div>
+            <div id="estado3" class="estado">🟠 En camino</div>
+            <div id="estado4" class="estado">✅ Entregado</div>
+        </div>
+
+    </section>
+
+    <section class="menu">
+        <h2>Menu Populares</h2>
+        <div class="grid">
+            <div class="card">
+                <img class="imagen1" src="milanes.jpeg" alt="Sandwich Hot">
+                <p>Sandwich Hot</p>
+            </div>
+            <div class="card">
+                <img class="imagen2" src="tortilla.jpg" alt="Tortilla House">
+                <p>Tortilla House</p>
+            </div>
+            <div class="card">
+                <img class="imagen3" src="Papas-fritas.webp" alt="Papas Master">
+                <p>Papas Master</p>
+            </div>
+        </div>
+    </section>
+    <script>
+        function ingresar() {
+            const nombre = document.getElementById("nombreLogin").value.trim();
+            const direccion = document.getElementById("direccionLogin").value.trim();
+
+            if (nombre === "" || direccion === "") {
+                alert("Por favor completá tu nombre y dirección.");
+                return;
+            }
+
+            // Guardar en el DOM
+            document.getElementById("mostrar-nombre").textContent = nombre;
+            document.getElementById("mostrar-direccion").textContent = direccion;
+
+            // Ocultar login y mostrar datos
+            document.getElementById("login-box").style.display = "none";
+            document.getElementById("datos-usuario").style.display = "block";
+
+            // Si querés, también podés guardar esto en variables globales para usar más tarde
+            window.nombreCliente = nombre;
+            window.direccionCliente = direccion;
+        }
+
+        let compras = [];
+        let total = 0;
+
+        function agregarCompra(nombre, precio) {
+            compras.push({ nombre, precio });
+            total += precio;
+
+            let listaHTML = "<h3>🧾 Lista de compras:</h3><ul>";
+            compras.forEach(function (item) {
+                listaHTML += `<li>${item.nombre} - $${item.precio}</li>`;
+            });
+            listaHTML += `</ul><p><strong>Total de compra:</strong> $${total}</p>`;
+            listaHTML += `<button onclick="confirmarCompra()" style="background-color:#4CAF50; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">Comprar</button>`;
+
+            document.getElementById("lista-compras").innerHTML = listaHTML;
+        }
+
+        function confirmarCompra() {
+            let nombre = window.nombreCliente || "Sin nombre";
+            let direccion = window.direccionCliente || "Sin dirección";
+
+            let mensaje = `🧾 Pedido desde la página web:\n`;
+            compras.forEach(function (item) {
+                mensaje += `• ${item.nombre} - $${item.precio}\n`;
+            });
+            mensaje += `\n💵 Total: $${total}`;
+            mensaje += `\n\n👤 Nombre: ${nombre}\n📍 Dirección: ${direccion}`;
+
+            // CODIFICAR correctamente el texto para WhatsApp
+            let textoCodificado = encodeURIComponent(mensaje);
+
+            // Teléfono (reemplazá por el real)
+            let telefono = "5491156559206";
+
+            // Enviar a WhatsApp
+            window.open(`https://wa.me/${telefono}?text=${textoCodificado}`, "_blank");
+        }
+
+        function mostrarEstado(numero) {
+            for (let i = 1; i <= 4; i++) {
+                const estado = document.getElementById("estado" + i);
+                estado.classList.remove("activo", "proximo");
+                if (i < numero) estado.classList.add("proximo");
+                else if (i === numero) estado.classList.add("activo");
+            }
+        }
+
+        function revisarEstado() {
+            const estadoGuardado = localStorage.getItem('estadoPedido');
+            if (estadoGuardado) {
+                mostrarEstado(parseInt(estadoGuardado));
+            }
+        }
+
+        // Mostrar el estado actual al cargar la página
+        revisarEstado();
+
+        // Revisar cada 5 segundos si cambió el estado
+        setInterval(revisarEstado, 5000);
+    </script>
+
+</body>
+
+</html>

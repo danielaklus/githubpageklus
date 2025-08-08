@@ -1,0 +1,188 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background: #fdfdfd;
+    color: #333;
+}
+
+header {
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-section {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.search-section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #e60023;
+}
+
+#login-box {
+    background-color: #ffecec;
+    border: 1px solid #ff9999;
+    padding: 20px;
+    width: 280px;
+    border-radius: 10px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+#login-box input {
+    width: 90%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#login-box button {
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#login-box button:hover {
+    background-color: #c2185b;
+}
+
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.cat {
+    background: #ffeaea;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.menu-opciones {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.opcion {
+    text-align: center;
+    width: 200px;
+}
+
+.opcion img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.opcion button {
+    margin-top: 10px;
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.opcion button:hover {
+    background-color: #c2185b;
+}
+
+.lista-compras {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+}
+
+#datos-usuario {
+    background-color: #e0ffe0;
+    border: 1px solid #00c853;
+    padding: 10px;
+    border-radius: 8px;
+    width: fit-content;
+    margin: 20px auto;
+    text-align: center;
+    font-size: 15px;
+}
+
+.seguimiento {
+    max-width: 250px;
+    margin: auto;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px red;
+    margin-top: 30px;
+}
+
+.estado {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.activo {
+    color: green;
+}
+
+.proximo {
+    color: black;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+    /* espacio entre imagenes */
+    flex-wrap: wrap;
+    /* para que bajen en pantalla chica */
+    justify-content: center;
+}
+
+.grid {
+    display: flex;
+    gap: 20px;
+    /* Espacio entre las tarjetas */
+    flex-wrap: wrap;
+    /* Por si no entran en una sola linea */
+    justify-content: center;
+    /* Centrado opcional */
+}
+
+.card {
+    width: 200px;
+    margin: 50px;
+    text-align: center;
+}
+
+.imagen1 {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.imagen2 {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.imagen3 {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+}
